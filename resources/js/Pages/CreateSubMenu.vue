@@ -9,7 +9,7 @@ const form = useForm({
 });
 
 
-const submit = () => {
+const submitdata = () => {
   form.post('/menutree');
 };
 </script>
@@ -21,11 +21,13 @@ const submit = () => {
             <div class="col-xs-3 col-lg-3"></div>
 
             <div class="col-xs-6 col-lg-6">
-                <form  @submit.prevent="submit" method="post" action="/menutree/createsubmenu"> 
+                <form  @submit.prevent="submitdata" method="post"> 
                     <h1>Create SubMenu</h1>
                     <div class="inline-form">
                         <label for="name">Name</label>
-                        <input class="form-control" type="text" v-model="form.name" name="name" id="name" placeholder="SubMenu Name" required>
+                        <input class="form-control" type="text" v-model="form.name" id="name" placeholder="SubMenu Name" required>
+                        <label for="main_menu_id">MainMenu Id</label>
+                        <input class="form-control" type="text" v-model="form.main_menu_id" id="main_menu_id" placeholder="MainMenu Id" required>
                     </div>
                 
                     <button class="btn btn-primary" type="submit">Enter</button>

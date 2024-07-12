@@ -8,25 +8,25 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get("/menutree", function () {   
-    return Inertia::render('MenuTree');
-});
+// Route::get('/menutree', [MainMenuController::class, 'index']);
 
-Route::get('/menutree/createmainmenu', function(){
-    return Inertia::render('CreateMainMenu');
-});
+Route::resource('/menutree',MainMenuController::class);
 
-// Route::post('menutree', [MainMenuController::class, 'store']);
+Route::resource('/submenu',SubMenuController::class);
 
-Route::get('/menutree/createsubmenu', function(){
-    return Inertia::render('CreateSubMenu');
-});
+Route::resource('/thirdmenu', ThirdMenuController::class);
 
-Route::post('menutree', [SubMenuController::class, 'store']);
 
-Route::get('/menutree/createthirdmenu', function(){
-    return Inertia::render('CreateThirdMenu');
-});
+// Route::post('/menutree',[MainMenuController::class, 'store']);
+
+// Route::get('/thirdmenu/create', [ThirdMenuController::class, 'create'])->name('thirdmenu.create');
+
+// Route::post('/thirdmenu', [ThirdMenuController::class, 'store'])->name('thirdmenu.store');
+// Route::get('/menutree', [MainMenuController::class, 'create']);
+
+// Route::get('menutree/createthirdmenu', function(){
+//     return Inertia::render('CreateThirdMenu');
+// });
 
 
 

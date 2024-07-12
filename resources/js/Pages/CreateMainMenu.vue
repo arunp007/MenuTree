@@ -22,11 +22,11 @@ const submit = () => {
             <div class="col-xs-3 col-lg-3"></div>
 
             <div class="col-xs-6 col-lg-6">
-                <form @submit.prevent="submit" method="post" action="/menutree/createmainmenu">
+                <form @submit.prevent="submit" method="post">
                     <h1>Create MainMenu</h1>
                     <div class="inline-form">
                         <label for="name">Name</label>
-                        <input class="form-control" type="text" v-model="form.name" name="name" id="name" placeholder="MainMenu Name" required>
+                        <input class="form-control" type="text" v-model="form.name" id="name" placeholder="MainMenu Name" required>
                     </div>
                 
                     <button class="btn btn-primary" type="submit">Enter</button>

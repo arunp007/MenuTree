@@ -9,7 +9,7 @@ class SubMenu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'main_menu_id'];
 
     public function mainMenus(){
         return $this->belongsTo(MainMenu::class);

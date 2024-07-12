@@ -1,25 +1,27 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.min.css';
 import bootstrap from 'bootstrap';
-import { defineProps, ref } from 'vue';
-import { Link, usePage } from "@inertiajs/vue3";
+import { ref, computed } from 'vue';
+import { Link, router, usePage } from "@inertiajs/vue3";
 
-const mainMenus = ref([]);
+const props = defineProps({
+  mainMenus: {
+    type: Object,
+    required: true,
+  },
 
-const { props } = usePage();
+  subMenus: {
+    type: Object,
+    required: true,
+  },
 
-defineProps({
-    props: {
+  thirdMenus:{
+    type: Object,
+    required: true,
+  },
 
-        mainMenus: {
-            type: Object, 
-            required: true
-        },
-        
 
-    },
-  
-})
+});
 
 
 </script>
@@ -36,25 +38,21 @@ defineProps({
                 <ul id="Menu-list">
                     <li>
                         <a href="#" class="tree-parent-anchor"> Main Menus</a>
-                        <ul v-for="main in mainMenus.data" :key="main.id">
-                            <li>{{ main.name }}</li>
+                        <ul>
+                            <li v-for="mains in mainMenus" :key="mains.id">{{ mains.name }}</li>
                         </ul>
                     </li>
                     <li>
                         <a href="#" class="tree-parent-anchor"> Sub Menus </a>
                         <ul>
-                            <li> Menu 2.1 </li>
-                            <li> Menu 2.2 </li>
-                            <li> Menu 2.3 </li>
+                            <li v-for="subs in subMenus" :key="subs.id"> {{ subs.name }} </li>
+                            
                         </ul>
                     </li>
                     <li>
                         <a href="#" class="tree-parent-anchor"> Third Menus </a>
                         <ul>
-                            <li> Menu 3.1 </li>
-                            <li> Menu 3.2 </li>
-                            <li> Menu 3.3 </li>
-                            <li> Menu 3.4 </li>
+                            <li v-for="third in thirdMenus" :key="third.id">{{ third.name }}</li>
                         </ul>
                     </li>
                 </ul>
@@ -68,7 +66,7 @@ defineProps({
                         <th class="border-2">Functionalities</th>
                     </tr>
 
-                    <tr class="border-2" v-for="menu in mainMenus.data" :key="menu.id">
+                    <tr class="border-2" v-for="menu in mainMenus" :key="menu.id">
                         <td class="border-2">{{ menu.id }}</td>
                         <td class="border-2">{{ menu.name }}</td>
                         <td class="border-2"> 
@@ -77,7 +75,7 @@ defineProps({
                                     Click Me
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/menutree/createmainmenu">Add</a>
+                                    <a class="dropdown-item" href="menutree/create">Add</a>
                                     <a class="dropdown-item" href="#">Edit</a>
                                     <a class="dropdown-item" href="#">Delete</a>
                                 </div>
@@ -94,17 +92,17 @@ defineProps({
                         <th class="border-2">Functionalities</th>
                     </tr>
 
-                    <tr>
-                        <td class="border-2"></td>
-                        <td class="border-2"></td>
-                        <td class="border-2"></td>
+                    <tr v-for="menus in subMenus" :key="menus.id">
+                        <td class="border-2">{{ menus.id }}</td>
+                        <td class="border-2">{{ menus.name }}</td>
+                        <td class="border-2">{{ menus.main_menu_id }}</td>
                         <td class="border-2">
                             <div class="dropdown">
                                 <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                     Click Me
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Add</a>
+                                    <a class="dropdown-item" href="submenu/create">Add</a>
                                     <a class="dropdown-item" href="#">Edit</a>
                                     <a class="dropdown-item" href="#">Delete</a>
                                 </div>
@@ -124,18 +122,18 @@ defineProps({
                         <th class="border-2">Functionalities</th>
                     </tr>
 
-                    <tr class="border-2">
-                        <td class="border-2"></td>
-                        <td class="border-2"></td>
-                        <td class="border-2"></td>
-                        <td class="border-2"></td>
+                    <tr class="border-2" v-for="thirds in thirdMenus" :key="thirds.id">
+                        <td class="border-2">{{ thirds.id }}</td>
+                        <td class="border-2">{{ thirds.name }}</td>
+                        <td class="border-2">{{ thirds.sub_menu_id }}</td>
+                        <td class="border-2">{{ thirds.main_menu_id }}</td>
                         <td class="border-2">
                             <div class="dropdown">
                                 <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                                     Click Me
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Add</a>
+                                    <a class="dropdown-item" href="/thirdmenu/create">Add</a>
                                     <a class="dropdown-item" href="#">Edit</a>
                                     <a class="dropdown-item" href="#">Delete</a>
                                 </div>
@@ -155,7 +153,7 @@ defineProps({
 </template>
 
 <script>
-import $ from 'jquery';
+import $, { type } from 'jquery';
 
 export default {
     name: 'MenuTree',

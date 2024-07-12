@@ -29,7 +29,7 @@ class SubMenuController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('CreateSubMenu');
     }
 
     /**
@@ -39,11 +39,13 @@ class SubMenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'main_menu_id' => 'required|exists:main_menus,id',
             
         ]);
 
         SubMenu::create([
             'name' => $request->input('name'),
+            'main_menu_id' => $request->input('main_menu_id'),
         ]);
 
         return redirect()->back()->with('success', 'SubMenu created successfully!')->header('X-Inertia-Location', url()->current());
@@ -54,7 +56,8 @@ class SubMenuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $subMenu = SubMenu::findorFail($id);
+        return response()->json($subMenu);
     }
 
     /**

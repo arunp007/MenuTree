@@ -12,6 +12,14 @@ class ThirdMenuController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+     protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
     public function index()
     {
         $thirdMenus = ThirdMenu::all();
@@ -26,7 +34,7 @@ class ThirdMenuController extends Controller
      */
     public function create($request)
     {
-             
+        return Inertia::render('CreateThirdMenu');
     }
 
     /**
@@ -37,19 +45,15 @@ class ThirdMenuController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'main_menu_id' => 'required|exists:main_menus,id',
-            'sub_menu_id' => 'required|exists:sub_menus,id'
+            'sub_menu_id' => 'required|exists:sub_menus,id',
         ]);
 
-            // Create the third menu item
-            ThirdMenu::create([
-                $thirdMenu = new ThirdMenu(),
-                $thirdMenu->name = $request->input('name'),
-                $thirdMenu->main_menu_id = $request->input('main_menu_id'),
-                $thirdMenu->sub_menu_id = $request->input('sub_menu_id'),
-                $thirdMenu->save(),
-            ]);
+        ThirdMenu::create([
+            'main_menu_id' => $request->input('main_menu_id'),
+            'sub_menu_id' => $request->input('sub_menu_id'),
+            'name' => $request->input('name'),
+        ]);
 
-        // Return a response, you can adjust this according to your needs
         return redirect()->back()->with('success', 'Third menu created successfully!');
     }
 

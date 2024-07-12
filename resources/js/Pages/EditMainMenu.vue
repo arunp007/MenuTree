@@ -1,19 +1,19 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ref } from 'vue';
-import { useForm, router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
   name: '',
-  main_menu_id: '',
-  sub_menu_id: '',
 });
 
 
-const submitvalue = () => {
-  router.post('/createthirdmenu', form);
+const submit = () => {
+  form.post('/menutree');
 };
+
 </script>
+
 
 <template>
     <div class="container-fluid">
@@ -22,23 +22,12 @@ const submitvalue = () => {
             <div class="col-xs-3 col-lg-3"></div>
 
             <div class="col-xs-6 col-lg-6">
-                <form @submit.prevent="submitvalue" method="post">
-                    <h1>Create ThirdMenu</h1>
+                <form @submit.prevent="submit" method="get">
+                    <h1>Create MainMenu</h1>
                     <div class="inline-form">
                         <label for="name">Name</label>
-                        <input class="form-control" v-model="form.name" type="text" id="name" placeholder="MainMenu Name" required>
+                        <input class="form-control" type="text" v-model="form.name" id="name" placeholder="MainMenu Name" required>
                     </div>
-
-                    <div class="inline-form">
-                        <label for="main_menu_id">MainMenu Id</label>
-                        <input class="form-control" v-model="form.main_menu_id" type="text" id="main_menu_id" placeholder="MainMenu Id" required>
-                    </div>
-
-                    <div class="inline-form">
-                        <label for="sub_menu_id">SubMenu Id</label>
-                        <input class="form-control" v-model="form.sub_menu_id" type="text" id="sub_menu_id" placeholder="SubMenu Id" required>
-                    </div>
-
                 
                     <button class="btn btn-primary" type="submit">Enter</button>
                 </form>
@@ -79,11 +68,10 @@ label{
 
 form{
     background-color: lightblue !important;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-top: 100px;
     border-radius: 10px;
-    height: 600px;
-    margin-bottom: 150px;
+    height: 500px;
 }
 </style>

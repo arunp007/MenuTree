@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('main_menu_id')->autoIncrement()->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
     }
